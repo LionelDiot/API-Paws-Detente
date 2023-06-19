@@ -9,8 +9,9 @@
    allow do
      origins "*"
 
-     resource "*",
-       headers: :any,
-       methods: [:get, :post, :put, :patch, :delete, :options, :head]
+    resource '*',
+      headers: %w[Authorization],
+      methods: %i[get post put patch delete options head],
+      expose: %w[Authorization]
    end
  end
