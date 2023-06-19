@@ -20,7 +20,7 @@ user = User.create!(
 
 # Create articles associated with the user
 10.times do
-  user.articles.create!(
+  Item.create!(
     title: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph,
     price: Faker::Commerce.price,
