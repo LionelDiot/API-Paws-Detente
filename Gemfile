@@ -6,7 +6,7 @@ ruby "3.2.1"
 gem "devise", "~> 4.9"
 gem "devise-jwt", "~> 0.11.0"
 gem "rack-cors", "~> 2.0"
-
+gem "faker"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
 
@@ -46,7 +46,10 @@ group :development, :test do
   gem "rspec-rails", "~> 5.1"
   gem "factory_bot_rails", "~> 6.2"
   gem 'dotenv-rails'
+  gem "table_print"
+  
 end
+
 
 group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]

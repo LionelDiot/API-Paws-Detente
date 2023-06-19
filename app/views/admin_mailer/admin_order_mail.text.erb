@@ -1,0 +1,16 @@
+Salut! Une nouvelle Ordre a été commandée !
+==========================================================
+L'utilisateur:
+  id: <%= @user.id %>
+  Nom: <%= @user.first_name %> <%= @user.last_name %>
+  Email: <%= @user.email %>
+ 
+  Adresse: <%= @user.address %>
+
+  <%= @user.first_name %> A l'Ordre :
+  n° : <%= @order.id %> crée le <%= @order.created_at.strftime("%d-%m-%Y") %>
+  <% @cart.product_carts.sort.each do |product_cart| %>
+  <%= product_cart.product.title %>   
+  Prix : <%= product_cart.product.price %> €  Quantité: <%=product_cart.quantity%>  <%= product_cart.total_price %> €
+  <% end %>  
+  Paiement : <%= @order.cart.sub_total %>
