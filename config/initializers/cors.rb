@@ -12,6 +12,7 @@
     resource '*',
       headers: %w[Authorization],
       methods: %i[get post put patch delete options head],
-      expose: %w[Authorization]
+      expose: %w[Authorization],
+      max_age: 86400
    end
  end
