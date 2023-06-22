@@ -1,11 +1,11 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: %i[ show update destroy create ]
-
+  before_action :set_item, only: %i[ show update destroy ]
+  before_action :is_admin, only: %i[ create update destroy ]
+  before_action :authenticate_user, only %i[is_admin]
   # GET /items
   def index
-    @items = Item.all
-
-    render json: @items
+    @items = Item.all    
+    render json: @items 
   end
 
   # GET /items/1
@@ -15,6 +15,10 @@ class ItemsController < ApplicationController
 
   # POST /items
   def create
+    unless is_admin
+      render json: { error: 'You are not authorized to delete this article.' }, status: :unauthorized
+      return
+    end
     @item = Item.new(item_params)
 
     if @item.save
@@ -26,7 +30,11 @@ class ItemsController < ApplicationController
 
   # PATCH/PUT /items/1
   def update
-    @item = Item.find(params[:id])
+    unless is_admin
+      render json: { error: 'You are not authorized to delete this article.' }, status: :unauthorized
+      return
+    end
+    
     if @item.update(item_params)
       render json: @item
     else
@@ -36,7 +44,11 @@ class ItemsController < ApplicationController
 
   # DELETE /items/1
   def destroy
-    @item = Item.find(params[:id])
+    unless is_admin
+      render json: { error: 'You are not authorized to delete this article.' }, status: :unauthorized
+      return
+    end
+    
     @item.destroy
   end
 
@@ -49,5 +61,12 @@ class ItemsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def item_params
       params.require(:item).permit(:title, :description, :price, :image_url)
+    end
+
+    def is_admin
+      unless current_user === User.find_by(user_id => 1)  
+        return false
+      end
+      return true
     end
 end

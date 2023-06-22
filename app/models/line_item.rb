@@ -7,7 +7,12 @@ class LineItem < ApplicationRecord
     validates :item_id, uniqueness: { scope: :cart_id, message: "has already been added to the cart" }
     
     # LOGIC
-  def total_price
+  def line_item_price
     self.quantity * self.product.price
+  end
+
+  def set_quantity(quantity)
+    self.quantity = quantity
+    save
   end
 end
