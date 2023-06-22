@@ -1,6 +1,7 @@
 class ChargesController < ApplicationController
   def create_checkout_session
-    
+    amount = (params.require(:amount)).to_i * 100
+
     @session = Stripe::Checkout::Session.create(
       line_items: [{
         price_data: {
@@ -8,17 +9,14 @@ class ChargesController < ApplicationController
           product_data: {
             name: 'Mon Panier',
           },
-          unit_amount: 12345,
+          unit_amount: amount,
         },
         quantity: 1,
       }],
       mode: 'payment',
-      success_url: 'http://localhost:3001/payment-success',
-      cancel_url: 'http://localhost:3001/payment-fail'
+      success_url: 'https://paws-detente.vercel.app/payment-success',
+      cancel_url: 'https://paws-detente.vercel.app/payment-fail'
     )
-    puts "#" * 30
-    puts "le session id est : #{@session.id}"
-    puts "#" * 30
     render json: { sessionId: @session.id }
   end
 
@@ -32,6 +30,6 @@ class ChargesController < ApplicationController
   #   @order.fill_order(@cart)
     
   #   @cart.selections.destroy_all
-  #   #il faut finir de compléter le Order et vider le panier
+  #il faut finir de compléter le Order et vider le panier
   # end
 end
