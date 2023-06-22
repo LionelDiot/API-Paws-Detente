@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: %i[ show update destroy ]
+  before_action :set_item, only: %i[ show update destroy create ]
 
   # GET /items
   def index
@@ -26,6 +26,7 @@ class ItemsController < ApplicationController
 
   # PATCH/PUT /items/1
   def update
+    @item = Item.find(params[:id])
     if @item.update(item_params)
       render json: @item
     else
@@ -35,6 +36,7 @@ class ItemsController < ApplicationController
 
   # DELETE /items/1
   def destroy
+    @item = Item.find(params[:id])
     @item.destroy
   end
 

@@ -26,6 +26,9 @@ user = User.create!(
     price: Faker::Commerce.price,
     image_url: "https://loremflickr.com/320/240?lock=#{rand(1..1000)}"
   )
+
+items = Item.all
+
 end
 
 puts 'Seed réussi!'
