@@ -22,10 +22,6 @@ class Cart < ApplicationRecord
 
   def edit_line_item(item, quantity)
     line_item = self.line_items.find_by(item_id: item.id)
-    puts item
-    puts quantity
-    puts line_item
-    puts "#"*30
     if line_item
       line_item.quantity = quantity
       line_item.save

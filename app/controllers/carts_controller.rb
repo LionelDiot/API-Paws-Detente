@@ -26,8 +26,6 @@ class CartsController < ApplicationController
   
     
     def add
-      puts @quantity
-      puts "c'etait la quantite"
       if @item && @quantity
         @current_cart.add_line_item(@item, @quantity)
         render json: @current_cart.line_items, status: :created
@@ -69,8 +67,6 @@ class CartsController < ApplicationController
         return
       end
       @current_cart = current_user.cart
-      puts @current_cart
-      puts 'c"etait le cart'
     end
 
     def find_item
