@@ -8,7 +8,7 @@ Rails.application.routes.draw do
             },
             defaults: { format: :json }
   get '/member-data', to: 'members#show'
-
+  post '/checkout', to: 'charges#create_checkout_session'
   get 'carts/show'
   get 'carts/:id' => "carts#show", as: "cart"
   delete 'carts/:id' => "carts#destroy"
@@ -18,8 +18,6 @@ Rails.application.routes.draw do
   post 'line_items' => "line_items#create"
   get 'line_items/:id' => "line_items#show", as: "line_item"
   delete 'line_items/:id' => "line_items#destroy"
-  
-
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
