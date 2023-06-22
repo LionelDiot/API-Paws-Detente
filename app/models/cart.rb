@@ -2,7 +2,7 @@ class Cart < ApplicationRecord
     has_many :line_items, dependent: :destroy
     has_many :items, through: :line_items
     belongs_to :user
-
+    
       # LOGIC
   def cart_total
     sum = 0
@@ -12,7 +12,7 @@ class Cart < ApplicationRecord
     return sum
   end
 
-  def add_line_item(item, quantity = 1)
+  def add_line_item(item, quantity)
     line_item = self.line_items.find_or_initialize_by(item_id: item.id)
     line_item.quantity ||= 0
     line_item.quantity += quantity
@@ -22,11 +22,22 @@ class Cart < ApplicationRecord
 
   def edit_line_item(item, quantity)
     line_item = self.line_items.find_by(item_id: item.id)
-    line_item.quantity = quantity
+    puts item
+    puts quantity
+    puts line_item
+    puts "#"*30
+    if line_item
+      line_item.quantity = quantity
+      line_item.save
+    end
+  
+    line_item
   end
   
   def delete_line_item(item)
     line_item = self.line_items.find_by(item_id: item.id)
     line_item.destroy if line_item
   end
+
+  
 end

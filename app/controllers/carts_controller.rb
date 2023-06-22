@@ -3,7 +3,7 @@ class CartsController < ApplicationController
   before_action :set_cart
   before_action :find_item, only: %i[add edit destroy]
   before_action :find_quantity, only: %i[add edit destroy]
-
+  
   def show
     cart_data = {
       line_items: []
@@ -26,24 +26,26 @@ class CartsController < ApplicationController
   
     
     def add
-  
+      puts @quantity
+      puts "c'etait la quantite"
       if @item && @quantity
         @current_cart.add_line_item(@item, @quantity)
-        render json: @cart.line_items, status: :created
+        render json: @current_cart.line_items, status: :created
       elsif @item && !@quantity 
         @current_cart.add_line_item(@item)
-        render json: @cart.line_items, status: :created
+        render json: @current_cart.line_items, status: :created
       else
         render json: { error: 'Item non valide' }, status: :unprocessable_entity
       end
     end
 
     def edit
-      
   
       if @item && @quantity
+        
         @current_cart.edit_line_item(@item, @quantity)
-        render json: @current_cart.line_items
+        
+        render json: @current_cart.line_items.reload
       else
         render json: { error: 'Item ou quantité non valide' }, status: :unprocessable_entity
       end
@@ -53,7 +55,7 @@ class CartsController < ApplicationController
 
       if @item
         @current_cart.delete_line_item(@item)
-        render json: @current_cart.line_items
+        render json: @current_cart.line_items.reload
       else
         render json: { error: 'Item non valide' }, status: :unprocessable_entity
       end
@@ -67,6 +69,8 @@ class CartsController < ApplicationController
         return
       end
       @current_cart = current_user.cart
+      puts @current_cart
+      puts 'c"etait le cart'
     end
 
     def find_item
@@ -74,6 +78,6 @@ class CartsController < ApplicationController
     end
     
     def find_quantity
-      @quantity = params[:quantity].to_i
+      @quantity = params[:quantity].presence || 1
     end
 end
