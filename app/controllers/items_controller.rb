@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :set_item, only: %i[ show update destroy ]
   before_action :is_admin, only: %i[ create update destroy ]
-  before_action :authenticate_user, only %i[is_admin]
+  before_action :authenticate_user, only: %i[is_admin]
   # GET /items
   def index
     @items = Item.all    
