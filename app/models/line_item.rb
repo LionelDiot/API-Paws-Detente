@@ -10,7 +10,7 @@ class LineItem < ApplicationRecord
     
     # LOGIC
   def line_item_price
-    self.quantity * self.product.price
+    self.quantity * self.item.price
   end
 
   def check_quantity
