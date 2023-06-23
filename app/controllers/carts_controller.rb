@@ -6,7 +6,7 @@ class CartsController < ApplicationController
   
   def show
     cart_data = {
-      total: @current_cart.cart_total
+      total: @current_cart.cart_total,
       line_items: []
     }
   
