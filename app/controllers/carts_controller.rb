@@ -6,6 +6,7 @@ class CartsController < ApplicationController
   
   def show
     cart_data = {
+      total: @current_cart.cart_total
       line_items: []
     }
   
@@ -16,7 +17,8 @@ class CartsController < ApplicationController
         quantity: line_item.quantity,
         description: line_item.item.description,
         price: line_item.item.price,
-        image_url: line_item.item.image_url
+        image_url: line_item.item.image_url,
+        line_item_price: line_item.line_item_price
       }
       cart_data[:line_items] << item_data
     end
@@ -25,39 +27,39 @@ class CartsController < ApplicationController
   end
   
     
-    def add
-      if @item && @quantity
-        @current_cart.add_line_item(@item, @quantity)
-        render json: @current_cart.line_items, status: :created
-      elsif @item && !@quantity 
-        @current_cart.add_line_item(@item)
-        render json: @current_cart.line_items, status: :created
-      else
-        render json: { error: 'Item non valide' }, status: :unprocessable_entity
-      end
+  def add
+    if @item && @quantity
+      @current_cart.add_line_item(@item, @quantity)
+      item_message = "#{@item.title} a bien été ajouté #{@quantity} fois au panier."
+      render json: { message: item_message }, status: :created
+    elsif @item && !@quantity 
+      @current_cart.add_line_item(@item)
+      item_message = "#{@item.title} a bien été ajouté 1 fois au panier."
+      render json: { message: item_message }, status: :created
+    else
+      render json: { error: 'Item non valide' }, status: :unprocessable_entity
     end
+  end
 
-    def edit
-  
-      if @item && @quantity
-        
-        @current_cart.edit_line_item(@item, @quantity)
-        
-        render json: @current_cart.line_items.reload
-      else
-        render json: { error: 'Item ou quantité non valide' }, status: :unprocessable_entity
-      end
+  def edit
+    if @item && @quantity
+      @current_cart.edit_line_item(@item, @quantity)
+      item_message = "La quantité de #{@item.title} a été ajustée à #{@quantity}."
+      render json: { message: item_message }
+    else
+      render json: { error: 'Item ou quantité non valide' }, status: :unprocessable_entity
     end
+  end
 
-    def destroy
-
-      if @item
-        @current_cart.delete_line_item(@item)
-        render json: @current_cart.line_items.reload
-      else
-        render json: { error: 'Item non valide' }, status: :unprocessable_entity
-      end
+  def destroy
+    if @item
+      @current_cart.delete_line_item(@item)
+      item_message = "#{@item.title} a bien été supprimé du panier."
+      render json: { message: item_message }
+    else
+      render json: { error: 'Item non valide' }, status: :unprocessable_entity
     end
+  end
 
     
     private
