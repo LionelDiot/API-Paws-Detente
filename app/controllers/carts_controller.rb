@@ -5,6 +5,7 @@ class CartsController < ApplicationController
   before_action :find_quantity, only: %i[add edit destroy]
   
   def show
+    puts "coucou de show !!!"
     cart_data = {
       total: @current_cart.cart_total,
       line_items: []
