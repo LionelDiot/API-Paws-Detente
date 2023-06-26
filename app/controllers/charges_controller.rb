@@ -3,7 +3,8 @@ class ChargesController < ApplicationController
 
 
   def create_checkout_session
-    console.log(current_user)
+    puts(current_user.id)
+    puts('#'*35)
     amount = current_user.cart.cart_total
 
     @session = Stripe::Checkout::Session.create(
