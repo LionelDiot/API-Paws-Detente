@@ -10,7 +10,7 @@ class Order < ApplicationRecord
       order_items.create(
         quantity: line_item.quantity,
         item_title: line_item.item.title,
-        price: line_item.item.price,
+        item_price: line_item.item.price,
         line_item_price: line_item.line_item_price
       )
     end
