@@ -7,7 +7,7 @@ class Order < ApplicationRecord
 
   def fill_order(cart)
     cart.line_items.each do |line_item|
-      order_items.create(
+      self.order_items.create(
         quantity: line_item.quantity,
         item_title: line_item.item.title,
         item_price: line_item.item.price,
