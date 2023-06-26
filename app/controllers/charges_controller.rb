@@ -44,27 +44,27 @@ class ChargesController < ApplicationController
       return head :bad_request
     end
   
-    # Handle the checkout.session.completed event
-    if event.type == 'checkout.session.completed'
-      session = event.data.object
+    session = event.data.object
+    puts "#"*30
+    puts session
+    puts "#"*30
+    # Retrieve the relevant data from the session and payment intent
+    session_id = session.id
+    payment_intent_id = session.payment_intent
+    user_id = session.client_reference_id
   
-      # Retrieve the relevant data from the session and payment intent
-      session_id = session.id
-      payment_intent_id = session.payment_intent
-      user_id = session.client_reference_id
+    # Retrieve the user, cart, and payment intent from your Rails models
+    @user = User.find(user_id)
+    @cart = Cart.find_by(user_id: @user.id)
+    @payment_intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
   
-      # Retrieve the user, cart, and payment intent from your Rails models
-      @user = User.find(user_id)
-      @cart = Cart.find_by(user_id: @user.id)
-      @payment_intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
+    # Create the order
+    @order = Order.create!(user_id: @user.id, total: @cart.cart_total)
+    @order.fill_order(@cart)
   
-      # Create the order
-      @order = Order.create!(user_id: @user.id, total: @cart.cart_total)
-      @order.fill_order(@cart)
-  
-      # Empty the cart
-      @cart.empty_cart
-    end
+    # Empty the cart
+    @cart.empty_cart
+
   
     head :ok
   end
