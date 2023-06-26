@@ -31,7 +31,7 @@ class ChargesController < ApplicationController
   def success
     payload = request.body.read
     sig_header = request.env['HTTP_STRIPE_SIGNATURE']
-    endpoint_secret = ENV['SRIPE_SIGNING_SECRET'] 
+    endpoint_secret = ENV['SRIPE_SIGNING_SECRET']
   
     # Verify the webhook signature
     begin
@@ -45,13 +45,13 @@ class ChargesController < ApplicationController
     end
   
     # Handle the checkout.session.completed event
-    if event['type'] == 'checkout.session.completed'
-      session = event['data']['object']
+    if event.type == 'checkout.session.completed'
+      session = event.data.object
   
       # Retrieve the relevant data from the session and payment intent
-      session_id = session['id']
-      payment_intent_id = session['payment_intent']
-      user_id = session['client_reference_id']
+      session_id = session.id
+      payment_intent_id = session.payment_intent
+      user_id = session.client_reference_id
   
       # Retrieve the user, cart, and payment intent from your Rails models
       @user = User.find(user_id)
@@ -68,4 +68,5 @@ class ChargesController < ApplicationController
   
     head :ok
   end
+  
 end
