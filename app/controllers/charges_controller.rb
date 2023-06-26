@@ -46,12 +46,12 @@ class ChargesController < ApplicationController
   
     session = event.data.object
     puts "#"*30
-    puts session
+    puts session.metadata
     puts "#"*30
     # Retrieve the relevant data from the session and payment intent
     session_id = session.id
     payment_intent_id = session.payment_intent
-    user_id = session.client_reference_id
+    user_id = session.metadata.client_reference_id
   
     # Retrieve the user, cart, and payment intent from your Rails models
     @user = User.find(user_id)
