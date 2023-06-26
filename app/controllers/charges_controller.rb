@@ -1,9 +1,9 @@
 class ChargesController < ApplicationController
   before_action :authenticate_user!, only: %i[ create_checkout_session ]
-  skip_before_action :verify_authenticity_token, only: %i[ success ]
+
 
   def create_checkout_session
-    amount = (params.require(:amount).to_f * 100).to_i
+    amount = current_user.cart.cart_total
 
     @session = Stripe::Checkout::Session.create(
       line_items: [{

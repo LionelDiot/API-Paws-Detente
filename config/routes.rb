@@ -8,7 +8,7 @@ Rails.application.routes.draw do
             },
             defaults: { format: :json }
   get '/member-data', to: 'members#show'
-  post '/checkout', to: 'charges#create_checkout_session'
+  get '/checkout', to: 'charges#create_checkout_session'
   get '/cart', to: 'carts#show'
   post '/cart', to: 'carts#add'
   patch '/cart', to: 'carts#edit'
