@@ -16,7 +16,7 @@ class ItemsController < ApplicationController
   # POST /items
   def create
     unless is_admin
-      render json: { error: 'You are not authorized to delete this article.' }, status: :unauthorized
+      render json: { error: "Vous n'êtes pas authorisé à créer un article." }, status: :unauthorized
       return
     end
     @item = Item.new(item_params)
@@ -31,7 +31,7 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   def update
     unless is_admin
-      render json: { error: 'You are not authorized to delete this article.' }, status: :unauthorized
+      render json: { error: "Vous n'êtes pas authorisé à modifier un article." }, status: :unauthorized
       return
     end
     
@@ -45,7 +45,7 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   def destroy
     unless is_admin
-      render json: { error: 'You are not authorized to delete this article.' }, status: :unauthorized
+      render json: { error: "Vous n'êtes pas authorisé à supprimer un article." }, status: :unauthorized
       return
     end
     

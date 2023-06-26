@@ -23,7 +23,7 @@ user = User.create!(
   Item.create!(
     title: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph,
-    price: Faker::Commerce.price,
+    price: (Faker::Commerce.price*100).to_i,
     image_url: "https://loremflickr.com/320/240?lock=#{rand(1..1000)}"
   )
 

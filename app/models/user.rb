@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :items
   has_one :cart, dependent: :destroy
-
+  has_many :orders, dependent: :destroy
   devise :database_authenticatable, :registerable,
 	  :jwt_authenticatable, :recoverable,
 	  jwt_revocation_strategy: JwtDenylist
