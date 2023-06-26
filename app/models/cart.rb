@@ -35,5 +35,8 @@ class Cart < ApplicationRecord
     line_item.destroy if line_item
   end
 
+  def empty_cart
+    line_items.destroy_all
+  end
   
 end

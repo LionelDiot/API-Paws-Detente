@@ -5,13 +5,14 @@ class CartsController < ApplicationController
   before_action :find_quantity, only: %i[add edit destroy]
   
   def show
-    puts "coucou de show !!!"
     cart_data = {
       total: @current_cart.cart_total,
       line_items: []
     }
   
-    @current_cart.line_items.each do |line_item|
+    sorted_line_items = @current_cart.line_items.order(created_at: :asc)  # Sort line items by created_at timestamp
+  
+    sorted_line_items.each do |line_item|
       item_data = {
         item_id: line_item.item_id,
         item_title: line_item.item.title,
@@ -26,6 +27,7 @@ class CartsController < ApplicationController
   
     render json: cart_data
   end
+  
   
     
   def add

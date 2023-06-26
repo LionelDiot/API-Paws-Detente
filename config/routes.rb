@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   post '/cart', to: 'carts#add'
   patch '/cart', to: 'carts#edit'
   delete '/cart', to: 'carts#destroy'
+  post '/stripe/webhook', to: 'charges#success'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
