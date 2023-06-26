@@ -3,8 +3,7 @@ class ChargesController < ApplicationController
 
 
   def create_checkout_session
-    puts(current_user.id)
-    puts('#'*35)
+
     amount = current_user.cart.cart_total
 
     @session = Stripe::Checkout::Session.create(
@@ -45,9 +44,6 @@ class ChargesController < ApplicationController
     end
   
     session = event.data.object
-    puts "#"*30
-    puts session.metadata
-    puts "#"*30
     # Retrieve the relevant data from the session and payment intent
     session_id = session.id
     payment_intent_id = session.payment_intent
