@@ -10,8 +10,15 @@ class MembersController < ApplicationController
   end
 
   def index
-    favorites = current_user.favorite_items
-    render json: favorites
+
+      favorites = current_user.favorite_items.map do |favorite_item|
+        item = favorite_item.item
+        item_hash = item.as_json
+        item_hash['favorite'] = true
+        item_hash
+      end
+      render json: favorites
+
   end
 
   def switch
