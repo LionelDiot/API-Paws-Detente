@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_many :items
   has_one :cart, dependent: :destroy
   has_many :orders, dependent: :destroy
+  has_many :favorite_items, dependent: :destroy
+  has_many :items, through: :favorite_items
   devise :database_authenticatable, :registerable,
 	  :jwt_authenticatable, :recoverable,
 	  jwt_revocation_strategy: JwtDenylist
@@ -18,5 +20,9 @@ class User < ApplicationRecord
     Cart.create!(
       user_id: self.id
     )
+  end
+
+  def admin?
+    id == 1
   end
 end

@@ -12,6 +12,7 @@ User.destroy_all
 
 ActiveRecord::Base.connection.execute('ALTER SEQUENCE items_id_seq RESTART WITH 1')
 ActiveRecord::Base.connection.execute('ALTER SEQUENCE users_id_seq RESTART WITH 1')
+ActiveRecord::Base.connection.execute('ALTER SEQUENCE favorite_items_id_seq RESTART WITH 1')
 # Create a user
 user = User.create!(
   email: 'admin@admin.fr',
@@ -20,15 +21,18 @@ user = User.create!(
 
 # Create articles associated with the user
 10.times do
+  category = %w[chien chat oiseau autre].sample
+
   Item.create!(
     title: Faker::Commerce.product_name,
     description: Faker::Lorem.paragraph,
-    price: (Faker::Commerce.price*100).to_i,
-    image_url: "https://loremflickr.com/320/240?lock=#{rand(1..1000)}"
+    price: (Faker::Commerce.price * 100).to_i,
+    image_url: "https://loremflickr.com/320/240?lock=#{rand(1..1000)}",
+    category: category
   )
-
-
-
 end
 
 puts 'Seed réussi!'
+
+
+
