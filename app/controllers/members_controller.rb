@@ -2,7 +2,7 @@ class MembersController < ApplicationController
   before_action :authenticate_user!
 
 	def show
-	  user = get_user_from_token
+	  user = current_user
   	render json: {
       user: user,
       orders: user.orders
