@@ -25,7 +25,7 @@ class MembersController < ApplicationController
     item_id = params[:item_id]
     item = Item.find(item_id)
   
-    if current_user.favorite_items.exists?(item_id)
+    if current_user.favorite_items.exists?(item_id: item_id)
       current_user.favorite_items.find_by(item_id: item_id).destroy
       render json: { message: 'Item removed from favorites' }
     else
