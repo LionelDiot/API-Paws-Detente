@@ -38,11 +38,6 @@ end
       @item = Item.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
-    def item_params
-      params.require(:item).permit(:title, :description, :price, :image_url)
-    end
-
     def get_user_from_token
       @user = user_signed_in? ? current_user : nil
     end
