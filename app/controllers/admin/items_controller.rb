@@ -52,8 +52,8 @@ class Admin::ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.fetch(:item, {})
-    end
+      params.require(:item).permit(:title, :content, :price, :image_url, :category)
+    end    
 
     def authenticate_admin
       unless current_user&.admin?
