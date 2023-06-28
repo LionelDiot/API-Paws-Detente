@@ -1,6 +1,23 @@
 class MembersController < ApplicationController
   before_action :authenticate_user!
 
+  def update_password
+    if current_user.update_with_password(update_password_params)
+      bypass_sign_in(current_user)
+      render json: { message: 'Password updated successfully.' }, status: :ok
+    else
+      render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def update_email
+    if current_user.update(email: update_email_params[:email])
+      render json: { message: 'Email updated successfully.', email: current_user.email }, status: :ok
+    else
+      render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
 	def show
 	  user = current_user
   	render json: {
@@ -33,5 +50,14 @@ class MembersController < ApplicationController
       render json: { message: 'Item added to favorites' }
     end
   end
+  
+  private
 
+  def update_email_params
+    params.require(:user).permit(:email)
+  end
+
+  def update_password_params
+    params.require(:user).permit(:password, :password_confirmation, :current_password)
+  end
 end

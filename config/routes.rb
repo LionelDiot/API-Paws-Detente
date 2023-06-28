@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    resources :items
-  end
+
   resources :items, except: [ :edit, :new, :destroy]
   devise_for :users,
             controllers: {
@@ -10,6 +8,12 @@ Rails.application.routes.draw do
                 passwords: 'users/passwords'
             },
             defaults: { format: :json }
+
+
+  post '/new-password', to: 'members#update_password'
+  post '/new-email', to: 'members#update_email' 
+
+
   get '/member-data', to: 'members#show'
   get '/checkout', to: 'charges#create_checkout_session'
   get '/cart', to: 'carts#show'
@@ -19,8 +23,9 @@ Rails.application.routes.draw do
   post '/stripe/webhook', to: 'charges#success'
   namespace :admin do
     get '/dashboard', to: 'items#dashboard'
-    resources :articles
+    resources :items
   end
+
   get '/favorites', to: 'members#index'
   post '/favorites', to: 'members#switch'
   
