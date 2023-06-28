@@ -12,8 +12,7 @@ Rails.application.routes.draw do
 
   post '/new-password', to: 'members#update_password'
   post '/new-email', to: 'members#update_email' 
-
-
+  get '/order-details', to: 'members#order_details'
   get '/member-data', to: 'members#show'
   get '/checkout', to: 'charges#create_checkout_session'
   get '/cart', to: 'carts#show'
