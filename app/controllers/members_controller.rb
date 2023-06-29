@@ -18,7 +18,6 @@ class MembersController < ApplicationController
       }
       order_data[:order_items] << item_data
     end
-  
     render json: order_data
   end
 
@@ -43,7 +42,7 @@ class MembersController < ApplicationController
 	  user = current_user
   	render json: {
       user: user,
-      orders: user.orders
+      orders: user.orders.order(updated_at: :desc)
   	}
   end
 
@@ -55,7 +54,7 @@ class MembersController < ApplicationController
         item_hash['favorite'] = true
         item_hash
       end
-      render json: favorites
+      render json: favorites.order(updated_at: :desc)
 
   end
 

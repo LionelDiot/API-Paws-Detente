@@ -6,7 +6,7 @@ class Admin::ItemsController < ApplicationController
   def index
     @items = Item.all
 
-    render json: @items
+    render json: @items.order(updated_at: :desc)
   end
 
   # GET /admin/items/1
@@ -41,7 +41,7 @@ class Admin::ItemsController < ApplicationController
 
   def dashboard
     @orders = Order.all
-    render json: @orders
+    render json: @orders.order(updated_at: :desc)
   end
 
   private

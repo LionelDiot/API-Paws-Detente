@@ -15,7 +15,7 @@ def index
     end
   end
 
-  render json: @items
+  render json: @items.order(updated_at: :desc)
 end
 
   # GET /items/1
