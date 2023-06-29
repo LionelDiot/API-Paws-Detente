@@ -9,7 +9,7 @@ class UserMailer < ApplicationMailer
 
   def purchase_email(order)
 		@order = order
-		@cart = @order.cart
+		@order_items = @order.order_items
 		mail(to: @order.user.email, subject: 'Récapitulatif de votre commande')
 	end
 
