@@ -1,8 +1,12 @@
-<center>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Paws Détente: Merci pour votre commande</title>
+  </head>
   <body>
-    <h2 style="color: #c34e17">Toute l'équipe Paws détente vous remercie pour votre achat</h3>
+    <h2 style="color: #c34e17">Toute l'équipe Paws détente vous remercie pour votre achat</h2>
     <img src="https://media.discordapp.net/attachments/1087307861207564318/1088494079324721202/image.png" style="width: 150px; height: 150px;">
-    <p style="color: #c34e17;"><strong>Vous trouverez ci-dessous les détails de votre commande </strong></p>
+    <p style="color: #c34e17;"><strong>Vous trouverez ci-dessous les détails de votre commande</strong></p>
     <div class="container-fluid pt-5">
       <div class="row px-xl-5">
         <div class="col-lg-12 table-responsive mb-5">
@@ -15,19 +19,21 @@
                 <th>Total</th>
               </tr>
             </thead>
-            <% @order_items.each do |item_cart| %>
+            <% @order_items.each do |item| %>
               <tbody class="align-middle">
                 <tr>
-                  <td class="align-middle"><img src= "" alt="" style="width: 50px;"><%= product_cart.item_title %></td>
-                  <td class="align-middle"><%= item_cart.item_price %> €</td>
-                  <td class="align-middle"><%=item_cart.quantity%></td>
-                  <td class="align-middle"><%= item_cart.line_item_price %> €</td>
+                  <td class="align-middle"><img src="" alt="" style="width: 50px;"><%= item.item_title %></td>
+                  <td class="align-middle"><%= item.item_price %> €</td>
+                  <td class="align-middle"><%= item.quantity %></td>
+                  <td class="align-middle"><%= item.line_item_price %> €</td>
                 </tr>
               </tbody>
             <% end %>
           </table>
         </div>
+        <p style="color: #c34e17;">Votre total était de : <strong><%= @order.total %> €</strong></p>
+        <p style="color: #c34e17;">La commande a été passée le <strong><%= @order.created_at.strftime("%d/%m/%Y à %H:%M") %></strong></p>
       </div>
     </div>
   </body>
-</center>
+</html>
