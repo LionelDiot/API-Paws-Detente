@@ -14,8 +14,8 @@ def index
       item_hash
     end
   end
-
-  render json: @items.order(updated_at: :desc)
+  sorted_items = @items.sort_by { |item| item['updated_at'] }.reverse
+  render json: sorted_items
 end
 
   # GET /items/1
