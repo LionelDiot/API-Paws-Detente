@@ -6,7 +6,7 @@ class Order < ApplicationRecord
   validates :total, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   def summary_order_mailer
-      UserMailer.purchase_email(self).deliver_later        
+      UserMailer.purchase_email(self).deliver_now      
   end
 
   def fill_order(cart)
