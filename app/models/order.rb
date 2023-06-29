@@ -13,8 +13,8 @@ class Order < ApplicationRecord
     cart.line_items.each do |line_item|
       self.order_items.create(
         quantity: line_item.quantity,
-        item_title: line_item.title,
-        item_price: line_item.price,
+        item_title: line_item.item.title,
+        item_price: line_item.item.price,
         line_item_price: line_item.line_item_price
       )
     end
