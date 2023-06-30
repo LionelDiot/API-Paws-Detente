@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :item do
-    sequence(:title) { |n| "Item n°#{n}"  }
+    title { Faker::Commerce.product_name }
     description { "MyText" }
-    sequence(:price) { |n| n  }
+    price { Faker::Commerce.price(range: 1..100)*100 }
     image_url { "www.monimage.com" }
   end
 end
+

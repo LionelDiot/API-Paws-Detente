@@ -23,15 +23,15 @@
               <tbody class="align-middle">
                 <tr>
                   <td class="align-middle"><img src="" alt="" style="width: 50px;"><%= item.item_title %></td>
-<td class="align-middle"><%= (item.item_price / 100).toFixed(2) %> €</td>
+                  <td class="align-middle"><%= (item.item_price.to_f / 100) %> €</td>
                   <td class="align-middle"><%= item.quantity %></td>
-                  <td class="align-middle"><%= item.line_item_price %> €</td>
+                  <td class="align-middle"><%= (item.line_item_price.to_f / 100) %> €</td>
                 </tr>
               </tbody>
             <% end %>
           </table>
         </div>
-        <p style="color: #c34e17;">Votre total était de : <strong><%= (@order.total / 100).toFixed(2) %> €</strong></p>
+        <p style="color: #c34e17;">Votre total était de : <strong><%= (@order.total.to_f / 100) %> €</strong></p>
         <p style="color: #c34e17;">La commande a été passée le <strong><%= @order.created_at.strftime("%d/%m/%Y à %H:%M") %></strong></p>
       </div>
     </div>
