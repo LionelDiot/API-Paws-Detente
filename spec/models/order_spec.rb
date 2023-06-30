@@ -34,7 +34,8 @@ RSpec.describe Order, type: :model do
     context "callbacks" do
   
       describe "some callbacks" do
-        # teste ce callback
+        it { expect(FactoryBot.create(:order)).to belong_to(:user) }
+        it { expect(FactoryBot.create(:order)).to have_many(:order_items) }
       end
   
     end

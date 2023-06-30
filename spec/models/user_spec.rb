@@ -24,18 +24,29 @@ RSpec.describe User, type: :model do
   
     context "associations" do
   
-      describe "some association" do
-        # teste cette association
-      end
-  
+      it { expect(FactoryBot.create(:user)).to have_one(:cart) }
+      it { expect(FactoryBot.create(:user)).to have_many(:orders) }
     end
   
-    context "callbacks" do
+    describe "callbacks" do
+      let(:user) { FactoryBot.create(:user) }
   
-      describe "some callbacks" do
-        # teste ce callback
+      it "sends a welcome email after create" do
+        expect {
+          user.save
+        }.to change { ActionMailer::Base.deliveries.count }.by(1)
+  
       end
   
+      it "creates a cart after create" do
+        expect {
+          user.save
+        }.to change { Cart.count }.by(1)
+  
+        cart = user.cart
+        expect(cart).to be_present
+        # Additional assertions for the cart attributes, associations, etc.
+      end
     end
   
     context "public instance methods" do

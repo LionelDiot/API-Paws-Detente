@@ -32,9 +32,7 @@ RSpec.describe Item, type: :model do
   
     context "associations" do
   
-      describe "some association" do
-        # teste cette association
-      end
+      it { expect(FactoryBot.create(:item)).to have_many(:line_items) }
   
     end
   

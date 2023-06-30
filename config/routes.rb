@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   post '/stripe/webhook', to: 'charges#success'
   namespace :admin do
     get '/dashboard', to: 'items#dashboard'
-    resources :items, except: [ :edit, :new, :destroy, :update, :create]
+    resources :items, except: [ :edit, :new, :destroy, :show]
   end
 
   get '/favorites', to: 'members#index'

@@ -26,19 +26,10 @@ RSpec.describe LineItem, type: :model do
   
     context "associations" do
   
-      describe "some association" do
-        # teste cette association
-      end
-  
+      it { expect(FactoryBot.create(:line_item)).to belong_to(:cart) }
+      it { expect(FactoryBot.create(:line_item)).to belong_to(:item) }
     end
   
-    context "callbacks" do
-  
-      describe "some callbacks" do
-        # teste ce callback
-      end
-  
-    end
   
     context "public instance methods" do
   

@@ -38,7 +38,7 @@ RSpec.describe OrderItem, type: :model do
     context "associations" do
   
       describe "some association" do
-        # teste cette association
+        it { expect(FactoryBot.create(:order_item)).to belong_to(:order) }
       end
   
     end
