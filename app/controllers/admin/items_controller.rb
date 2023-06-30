@@ -4,9 +4,8 @@ class Admin::ItemsController < ApplicationController
   before_action :authenticate_user, only: %i[ :authenticate_admin ]
   # GET /admin/items
   def index
-    @items = Item.all
-
-    render json: @items.order(updated_at: :desc)
+    @items = Item.order(updated_at: :desc)
+    render json: @items
   end
 
   # GET /admin/items/1
@@ -40,8 +39,8 @@ class Admin::ItemsController < ApplicationController
   end
 
   def dashboard
-    @orders = Order.all
-    render json: @orders.order(updated_at: :desc)
+    @orders = Order.order(updated_at: :desc)
+    render json: @orders
   end
 
   private
