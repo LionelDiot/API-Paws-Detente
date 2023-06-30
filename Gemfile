@@ -17,6 +17,11 @@ gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
+
+
+
+
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
@@ -48,7 +53,8 @@ group :development, :test do
   gem "factory_bot_rails", "~> 6.2"
   gem 'dotenv-rails'
   gem "table_print"
-  
+  gem 'nyan-cat-formatter', '~> 0.2'
+  gem 'shoulda-matchers', '~> 5.0'
 end
 
 
