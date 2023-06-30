@@ -18,7 +18,6 @@ class MembersController < ApplicationController
       }
       order_data[:order_items] << item_data
     end
-  
     render json: order_data
   end
 
@@ -39,12 +38,14 @@ class MembersController < ApplicationController
     end
   end
 
-	def show
-	  user = current_user
-  	render json: {
+  def show
+    user = current_user
+    sorted_orders = user.orders.sort_by { |order| order.updated_at }.reverse
+  
+    render json: {
       user: user,
-      orders: user.orders
-  	}
+      orders: sorted_orders
+    }
   end
 
   def index
@@ -55,7 +56,8 @@ class MembersController < ApplicationController
         item_hash['favorite'] = true
         item_hash
       end
-      render json: favorites
+      sorted_favorites = favorites.sort_by { |item| item['updated_at'] }.reverse
+  render json: sorted_favorites
 
   end
 

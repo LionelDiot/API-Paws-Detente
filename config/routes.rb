@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :items, except: [ :edit, :new, :destroy]
+  resources :items, except: [ :edit, :new, :destroy, :update, :create]
   devise_for :users,
             controllers: {
                 sessions: 'users/sessions',
@@ -12,9 +12,7 @@ Rails.application.routes.draw do
 
   post '/new-password', to: 'members#update_password'
   post '/new-email', to: 'members#update_email' 
-  get '/order-details', to: 'members#order_details'
   post '/order-details', to: 'members#order_details'
-
   get '/member-data', to: 'members#show'
   get '/checkout', to: 'charges#create_checkout_session'
   get '/cart', to: 'carts#show'
@@ -24,7 +22,7 @@ Rails.application.routes.draw do
   post '/stripe/webhook', to: 'charges#success'
   namespace :admin do
     get '/dashboard', to: 'items#dashboard'
-    resources :items
+    resources :items, except: [ :edit, :new, :destroy, :show]
   end
 
   get '/favorites', to: 'members#index'

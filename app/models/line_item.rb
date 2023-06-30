@@ -5,7 +5,7 @@ class LineItem < ApplicationRecord
     validates :item_id, presence: true
     validates :cart_id, presence: true
     validates :item_id, uniqueness: { scope: :cart_id, message: "has already been added to the cart" }
-
+    validates :quantity, presence: true
     after_save :check_quantity
     
     # LOGIC

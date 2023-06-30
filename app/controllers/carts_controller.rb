@@ -10,7 +10,7 @@ class CartsController < ApplicationController
       line_items: []
     }
   
-    sorted_line_items = @current_cart.line_items.order(created_at: :asc)  # Sort line items by created_at timestamp
+    sorted_line_items = @current_cart.line_items.sort_by { |line_item| line_item.updated_at }.reverse
   
     sorted_line_items.each do |line_item|
       item_data = {
@@ -27,6 +27,7 @@ class CartsController < ApplicationController
   
     render json: cart_data
   end
+  
   
   
     

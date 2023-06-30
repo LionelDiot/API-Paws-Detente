@@ -1,11 +1,9 @@
 FactoryBot.define do
   factory :order_item do
-    order { nil }
-    item_title { "MyString" }
-    item_description { "MyText" }
-    item_price { "9.99" }
-    item_image_url { "MyString" }
+    order { FactoryBot.create(:order) }
+    sequence(:item_title) { |n| "Item title n°#{n}" }
+    item_price { 1200 }
     quantity { 1 }
-    line_item_price { "9.99" }
+    line_item_price { item_price * quantity }
   end
 end

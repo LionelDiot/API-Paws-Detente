@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :item do
-    title { "MyString" }
+    sequence(:title) { |n| "Item n°#{n}"  }
     description { "MyText" }
-    price { 1.5 }
-    image_url { "MyString" }
+    sequence(:price) { |n| n  }
+    image_url { "www.monimage.com" }
   end
 end

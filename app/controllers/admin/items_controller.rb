@@ -4,15 +4,10 @@ class Admin::ItemsController < ApplicationController
   before_action :authenticate_user, only: %i[ :authenticate_admin ]
   # GET /admin/items
   def index
-    @items = Item.all
-
+    @items = Item.order(updated_at: :desc)
     render json: @items
   end
 
-  # GET /admin/items/1
-  def show
-    render json: @item
-  end
 
   # POST /admin/items
   def create
@@ -34,16 +29,18 @@ class Admin::ItemsController < ApplicationController
     end
   end
 
-  # DELETE /admin/items/1
-  def destroy
-    @item.destroy
-  end
 
   def dashboard
-    @orders = Order.all
+    @orders = Order.order(updated_at: :desc)
     render json: @orders
   end
 
+  # DELETE /admin/items/1
+  # def destroy
+  #   @item.destroy
+  # end
+
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item
