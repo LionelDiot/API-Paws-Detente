@@ -40,13 +40,7 @@ RSpec.describe Order, type: :model do
   
     end
   
-    context "public instance methods" do
-  
-      describe "#some_method" do
-        # teste cette méthode
-      end
-  
-    end
+
   
     context "public class methods" do
   

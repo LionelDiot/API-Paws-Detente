@@ -41,14 +41,16 @@ RSpec.describe Cart, type: :model do
       describe "#cart_total" do
         it "calculates the total price of the cart" do
           cart = FactoryBot.create(:cart) # Create a cart instance using FactoryBot
-    
+          item1 = FactoryBot.create(:item)
+          item2 = FactoryBot.create(:item)
           # Create line items associated with the cart
-          line_item1 = FactoryBot.create(:line_item, cart: cart, line_item_price: 10)
-          line_item2 = FactoryBot.create(:line_item, cart: cart, line_item_price: 20)
+          cart.add_line_item(item1, 1)
+          cart.add_line_item(item2, 2)
+
     
           # Calculate the expected total price
-          expected_total = line_item1.line_item_price + line_item2.line_item_price
-    
+          expected_total = item1.price + item2.price + item2.price
+
           expect(cart.cart_total).to eq(expected_total)
         end
       end
@@ -95,10 +97,14 @@ RSpec.describe Cart, type: :model do
       describe "#empty_cart" do
         it "deletes all line items from the cart" do
           cart = FactoryBot.create(:cart) # Create a cart instance using FactoryBot
-          FactoryBot.create_list(:line_item, 3, cart: cart) # Create multiple line items associated with the cart
+          item1 = FactoryBot.create(:item)
+          item2 = FactoryBot.create(:item)
+          # Create line items associated with the cart
+          cart.add_line_item(item1, 1)
+          cart.add_line_item(item2, 2) # Create multiple line items associated with the cart
     
           cart.empty_cart
-    
+
           expect(cart.line_items.count).to eq(0)
         end
       end
