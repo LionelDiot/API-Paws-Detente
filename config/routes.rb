@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :items, except: [ :edit, :new, :destroy]
+  resources :items, except: [ :edit, :new, :destroy, :update, :create]
   devise_for :users,
             controllers: {
                 sessions: 'users/sessions',
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   post '/stripe/webhook', to: 'charges#success'
   namespace :admin do
     get '/dashboard', to: 'items#dashboard'
-    resources :items
+    resources :items, except: [ :edit, :new, :destroy, :show]
   end
 
   get '/favorites', to: 'members#index'

@@ -10,6 +10,7 @@ class User < ApplicationRecord
 	  :jwt_authenticatable, :recoverable,
 	  jwt_revocation_strategy: JwtDenylist
 
+  validates :email, presence: true
   after_create :welcome_email, :create_cart
 
   def welcome_email
